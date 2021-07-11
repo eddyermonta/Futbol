@@ -74,6 +74,7 @@ public class ListaJugadoresFormulario implements ActionListener {
         
         generarEquipos(iteracion,tabla);
         deshabilitarJugador();
+        System.out.println("sss");
 
         JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA " + identificacionModelo.getRol() + " " + identificacionModelo.getUsuario());
     

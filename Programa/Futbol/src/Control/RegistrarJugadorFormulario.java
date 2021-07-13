@@ -74,7 +74,10 @@ public class RegistrarJugadorFormulario implements ActionListener{
             
             if(JugadorModelo.getModo_suscripcion().equals("frecuente") && jugadorBD.contarJugFrecuente()<=10)
             jugadorBD.registrarJugador(JugadorModelo);
-            } else System.out.println("limite de jugadores");
+            else if(JugadorModelo.getModo_suscripcion().equals("ocasional"))
+            jugadorBD.registrarJugador(JugadorModelo);    
+                System.out.println("limite de jugadores");
+            }
            
            
             InicioSesionFormulario form = new InicioSesionFormulario(inicio_sesionVista, identificacionModelo, identificacionDatos);

@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-/**
+/**asass
  * @author eduar
  */
 public class ConexionBD {

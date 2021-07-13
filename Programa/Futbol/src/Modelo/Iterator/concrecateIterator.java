@@ -7,7 +7,7 @@ package Modelo.Iterator;
 
 import Modelo.Jugador;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 /**
  *
@@ -34,7 +34,7 @@ public class concrecateIterator implements Itf_iterator{
     @Override //modificar para que traiga lo que nesecito
     public Object[] next() {
     Object[] datos = new Object[7];
-    if ((this.pos) < this.lista.ListaJugadores.size()) {
+    if ((this.pos) <= this.lista.ListaJugadores.size()) {
      datos[0]= this.pos;
      datos[1]= this.lista.ListaJugadores.get(this.pos).getNombre();
      datos[2]= this.lista.ListaJugadores.get(this.pos).getModo_suscripcion();

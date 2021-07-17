@@ -16,6 +16,8 @@ public class ListaJugadores extends javax.swing.JFrame {
      */
     public ListaJugadores() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -27,6 +29,7 @@ public class ListaJugadores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonFormarEquipos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEquipo1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -34,15 +37,19 @@ public class ListaJugadores extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButtonConfirmarEquipos = new javax.swing.JButton();
-        jButtonAtras = new javax.swing.JButton();
-        jButtonFormarEquipos = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableListaJugadores = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jButtonAgregarOcasional = new javax.swing.JButton();
         jButtonInfracciones = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonFormarEquipos.setText("Formar equipos");
+        jButtonFormarEquipos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButtonFormarEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 161, -1));
 
         jTableEquipo1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,6 +80,8 @@ public class ListaJugadores extends javax.swing.JFrame {
         });
         jTableEquipo1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableEquipo1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 423, 107));
 
         jTableEquipo2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,17 +114,22 @@ public class ListaJugadores extends javax.swing.JFrame {
         jTableEquipo2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableEquipo2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableEquipo2);
-        jTableEquipo2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 423, 109));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Equipo 1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 130, -1));
 
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Equipo 2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 110, -1));
 
         jButtonConfirmarEquipos.setText("Confirmar equipos");
-
-        jButtonAtras.setText("Atras");
-
-        jButtonFormarEquipos.setText("Formar equipos");
+        jButtonConfirmarEquipos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButtonConfirmarEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 433, 142, -1));
 
         jTableListaJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,77 +157,27 @@ public class ListaJugadores extends javax.swing.JFrame {
         jTableListaJugadores.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jTableListaJugadores.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTableListaJugadores);
-        if (jTableListaJugadores.getColumnModel().getColumnCount() > 0) {
-            jTableListaJugadores.getColumnModel().getColumn(0).setResizable(false);
-        }
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 569, 254));
+
+        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Lista de jugadores");
+        jLabel3.setOpaque(true);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, 210, -1));
 
         jButtonAgregarOcasional.setText("Agragar Jugadores ocasionales");
+        jButtonAgregarOcasional.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButtonAgregarOcasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, 219, -1));
 
         jButtonInfracciones.setText("Infracciones");
+        jButtonInfracciones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButtonInfracciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 433, 143, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(179, 179, 179)
-                        .addComponent(jButtonInfracciones, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonConfirmarEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(222, 222, 222))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(248, 248, 248))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jButtonFormarEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonAgregarOcasional, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(184, 184, 184))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonFormarEquipos)
-                    .addComponent(jButtonAgregarOcasional))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConfirmarEquipos)
-                    .addComponent(jButtonAtras)
-                    .addComponent(jButtonInfracciones))
-                .addGap(48, 48, 48))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PlayerList.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -255,13 +219,13 @@ public class ListaJugadores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonAgregarOcasional;
-    public javax.swing.JButton jButtonAtras;
     public javax.swing.JButton jButtonConfirmarEquipos;
     public javax.swing.JButton jButtonFormarEquipos;
     public javax.swing.JButton jButtonInfracciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -15,12 +15,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author eduar
  */
 public class JugadorBD {
+    
+    
+    public boolean BuscarRepetidoBD(String nombre){
+        boolean estado=false;
+        Statement query;
+        ResultSet rs;
+        try {
+            query = ConexionBD.Conectar().createStatement();
+            rs = query.executeQuery(
+                    "SELECT Nombre FROM persona where Nombre='"+nombre+"'");
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("error " + e);
+        }
+        return estado;
+    }
     
      public void insertaPersonaJugador(Jugador jugador) {
         PreparedStatement st;
@@ -221,6 +240,7 @@ public class JugadorBD {
     }
     
      public boolean updateJugadorModo(Jugador jugador){
+         boolean estado=false;
          try {
              String sql = "update jugador,persona set ModoSuscripcion  = ? \n" +
             "where Persona_id_Persona = id_Persona\n" +
@@ -230,13 +250,12 @@ public class JugadorBD {
              statement.setString(1, jugador.getModo_suscripcion());
              
              int rowsUpdated = statement.executeUpdate();
-             if (rowsUpdated > 0) {
-                 
-             }
-              return true;
+             if (rowsUpdated > 0)
+                 estado=true;
+        
          } catch (SQLException ex) {
              Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
-             return false;
          }
+         return estado;
     }
 }

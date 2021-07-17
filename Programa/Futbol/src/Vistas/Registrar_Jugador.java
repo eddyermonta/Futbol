@@ -16,6 +16,8 @@ public class Registrar_Jugador extends javax.swing.JFrame {
      */
     public Registrar_Jugador() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -29,55 +31,46 @@ public class Registrar_Jugador extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextFieldCedula = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextFieldNombre = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldCorreo = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBoxModo = new javax.swing.JComboBox<>();
-        jButtonAtras = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBoxForma = new javax.swing.JComboBox<>();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
-        jTextFieldUsuario = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFieldUsuario = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBoxForma = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBoxModo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldCorreo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldCedula = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Datos jugador");
-
-        jLabel2.setText("Cedula");
-
-        jLabel3.setText("Nombre");
-
-        jLabel4.setText("Correo");
-
-        jLabel5.setText("Modo suscripcion");
-
-        jComboBoxModo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "frecuente", "ocasional" }));
-        jComboBoxModo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxModoActionPerformed(evt);
-            }
-        });
-
-        jButtonAtras.setText("Atras");
-        jButtonAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAtrasActionPerformed(evt);
-            }
-        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonGuardar.setText("Guardar");
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Contrasena");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
+        getContentPane().add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 151, -1));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Usuario");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 49, -1));
+        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 151, -1));
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Forma de juego");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         jComboBoxForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "estandar", "solidaria" }));
         jComboBoxForma.addActionListener(new java.awt.event.ActionListener() {
@@ -85,119 +78,50 @@ public class Registrar_Jugador extends javax.swing.JFrame {
                 jComboBoxFormaActionPerformed(evt);
             }
         });
+        getContentPane().add(jComboBoxForma, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 80, -1));
 
-        jLabel7.setText("Usuario");
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Modo suscripcion");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 199, -1, -1));
 
-        jLabel8.setText("Contrasena");
+        jComboBoxModo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "frecuente", "ocasional" }));
+        jComboBoxModo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxModoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBoxModo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 80, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxForma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxModo, 0, 80, Short.MAX_VALUE))))
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addComponent(jSeparator2)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAtras)
-                        .addGap(15, 15, 15)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar)
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(jPasswordField))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(56, 56, 56)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addGap(28, 28, 28)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldCedula)
-                        .addComponent(jTextFieldNombre)
-                        .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
-                    .addContainerGap(71, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(5, 5, 5)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBoxModo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jComboBoxForma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAtras)
-                    .addComponent(jButtonGuardar))
-                .addGap(26, 26, 26))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(50, 50, 50)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addGap(27, 27, 27)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addGap(27, 27, 27)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addContainerGap(294, Short.MAX_VALUE)))
-        );
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Correo");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 147, -1, -1));
+        getContentPane().add(jTextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 148, -1));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Nombre");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 100, 55, -1));
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 148, -1));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cedula");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 55, -1));
+        getContentPane().add(jTextFieldCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 148, -1));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Datos jugador");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 11, 87, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RegistrarJugadores.jpg"))); // NOI18N
+        jLabel9.setText("jLabel9");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 360, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtrasActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButtonAtrasActionPerformed
 
     private void jComboBoxFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFormaActionPerformed
         // TODO add your handling code here:
@@ -246,7 +170,6 @@ public class Registrar_Jugador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    public javax.swing.JButton jButtonAtras;
     public javax.swing.JButton jButtonGuardar;
     public javax.swing.JComboBox<String> jComboBoxForma;
     public javax.swing.JComboBox<String> jComboBoxModo;
@@ -258,9 +181,8 @@ public class Registrar_Jugador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     public javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     public javax.swing.JTextField jTextFieldCedula;
     public javax.swing.JTextField jTextFieldCorreo;
     public javax.swing.JTextField jTextFieldNombre;

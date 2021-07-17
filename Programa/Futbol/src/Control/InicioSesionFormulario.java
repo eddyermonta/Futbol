@@ -17,21 +17,15 @@ import java.awt.event.ActionListener;
  */
 public class InicioSesionFormulario implements ActionListener {
 
-    Inicio_sesion inicio_sesionVista; //vista
-    Identificacion identificacionModelo; //modelo
-    Jugador jugadorModelo;
-    IdentificacionBD identificacionDatos;//baseDatos
-    Object [] dato ;
+    Inicio_sesion inicio_sesionVista;
+    Identificacion identificacionModelo; 
     
-
-    public InicioSesionFormulario(Inicio_sesion inicio_sesionVista, Identificacion identificacionModelo, IdentificacionBD identificacionDatos) {
+    public InicioSesionFormulario(Inicio_sesion inicio_sesionVista, Identificacion identificacionModelo) {
         this.inicio_sesionVista = inicio_sesionVista;
         this.identificacionModelo = identificacionModelo;
-        this.identificacionDatos = identificacionDatos;
-        dato = new Object[4];
         this.inicio_sesionVista.jButtonInicio.addActionListener(this);
         this.inicio_sesionVista.jButtonNuevoUsuario.addActionListener(this);
-    }
+    }   
 
     public void lectura() {
         identificacionModelo.setUsuario(inicio_sesionVista.jTextFieldUsuario.getText());
@@ -42,33 +36,35 @@ public class InicioSesionFormulario implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         lectura();
+        IdentificacionBD identificacionDatos = new IdentificacionBD();
+      
         if (e.getSource() == inicio_sesionVista.jButtonInicio) {
 
-            if (identificacionDatos.validarUsuario(identificacionDatos.BuscarUsuario(identificacionModelo.getUsuario()), identificacionModelo)) { //valida y compara datos ingresados con la base de datos
-                 Vistas.ListaJugadores listaJugadoresVista = new Vistas.ListaJugadores();
-                 JugadorBD jugadorbd= new JugadorBD();
-                 jugadorModelo=jugadorbd.LlenarJugador(identificacionModelo);
-                ListaJugadoresFormulario form = new ListaJugadoresFormulario(dato,listaJugadoresVista,identificacionModelo,jugadorModelo);
-                inicio_sesionVista.dispose();
+            if (identificacionDatos.validarUsuario(identificacionDatos.BuscarUsuario(identificacionModelo.getUsuario()), identificacionModelo)) { 
+            //valida y compara datos ingresados con la base de datos
+                Vistas.ListaJugadores listaJugadoresVista = new Vistas.ListaJugadores();
+                JugadorBD jugadorbd= new JugadorBD();
+                ListaJugadoresFormulario form = new ListaJugadoresFormulario(listaJugadoresVista,identificacionModelo,
+                        jugadorbd.LlenarJugador(identificacionModelo));
                 listaJugadoresVista.setVisible(true);
+                
             }
         }
         if (e.getSource() == inicio_sesionVista.jButtonNuevoUsuario) {
-
             if ("jugador".equals(identificacionModelo.getRol())) {
+               
                 Registrar_Jugador RegistrarJugadorVista = new Registrar_Jugador();
-                Jugador JugadorModelo = new Jugador();
-                RegistrarJugadorFormulario formu = new RegistrarJugadorFormulario(RegistrarJugadorVista,JugadorModelo);
+                RegistrarJugadorFormulario formu = new RegistrarJugadorFormulario(RegistrarJugadorVista);
                 RegistrarJugadorVista.setVisible(true);
-                inicio_sesionVista.dispose();
-
+               
             } else if ("admin".equals(identificacionModelo.getRol())) {
-                if (identificacionDatos.ExisteAdminBD(identificacionModelo)) {
+                if (!identificacionDatos.ExisteAdminBD(identificacionModelo)) {
+
                     Vistas.Administrador personaVista = new Vistas.Administrador();
-                    AdministradorBD admiBD = new AdministradorBD();
-                    AdministradorFormulario formu = new AdministradorFormulario(personaVista,admiBD);
+                    AdministradorFormulario formu = new AdministradorFormulario(personaVista);
                     personaVista.setVisible(true);
-                    inicio_sesionVista.dispose();
+                    
+                    
                 }
 
             }

@@ -16,6 +16,8 @@ public class Calificacion extends javax.swing.JFrame {
      */
     public Calificacion() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -27,13 +29,22 @@ public class Calificacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonTerminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableJugadores = new javax.swing.JTable();
-        jButtonTerminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonTerminar.setBackground(new java.awt.Color(0, 102, 0));
+        jButtonTerminar.setText("Terminar evaluacion");
+        getContentPane().add(jButtonTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 167, -1));
+
+        jTableJugadores.setAutoCreateRowSorter(true);
+        jTableJugadores.setBackground(new java.awt.Color(51, 51, 51));
+        jTableJugadores.setBorder(new javax.swing.border.MatteBorder(null));
         jTableJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -52,40 +63,15 @@ public class Calificacion extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableJugadores);
 
-        jButtonTerminar.setText("Terminar evaluacion");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 280, 170));
 
-        jLabel1.setText("jugadores ");
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setText("Jugadores ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 120, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(15, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jButtonTerminar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonTerminar)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/CalificacionJugadores.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,6 +114,7 @@ public class Calificacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonTerminar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTableJugadores;
     // End of variables declaration//GEN-END:variables

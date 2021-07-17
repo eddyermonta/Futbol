@@ -6,6 +6,7 @@
 package Control.Jtablemodelo;
 
 import BaseDatos.JugadorBD;
+import Control.ListaJugadoresFormulario;
 import Modelo.Jugador;
 import java.awt.Color;
 import java.awt.Component;
@@ -13,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -62,8 +64,10 @@ public class Celda extends DefaultTableCellRenderer {
                 if (hasFocus && (value.equals("frecuente") || value.equals("ocasional"))){
                    jug.setModo_suscripcion(value.toString());
                   
-                    if(jugaBd.updateJugadorModo(jug))
-                        System.out.println("actualiza");
+                   
+                    if(!(jug.isPenalizado()) && jugaBd.updateJugadorModo(jug))
+                        System.out.println("actualizado en bd");
+                        
                     
                 }
                   
@@ -79,47 +83,7 @@ public class Celda extends DefaultTableCellRenderer {
             
         return this;
         }
-   /*     
-        if(tipo.equals("combobox")){
-            if (hasFocus) colorFondo = colorFondoSeleccion;
-            else colorFondo = colorFondoPorDefecto;
-           
-            this.setHorizontalAlignment(JLabel.CENTER);
-            JComboBox combo1 = new JComboBox();
-            
-            if (model.getValueAt(row, column).getClass().equals(String.class)) {
-              combo1.addItem("frecuente");
-              combo1.addItem("ocasional");
-              combo1.setSelectedItem(model.getValueAt(row, column).toString());
-              
-              if(jug.getRol().equals("jugador")){
-                    if((model.getValueAt(row, 1).equals(jug.getNombre()))){
-                        combo1.setEnabled(true);
-                        combo1.setEditable(true);
-                    }
-                    
-                    else{
-                        combo1.setEnabled(false);
-                        combo1.setEditable(false);
-                    }
-                }else if(jug.getRol().equals("admin")){
-                    combo1.setEnabled(false);
-                    combo1.setEditable(false);
-                }
-              
-                if(model.getValueAt(row, 1).equals(jug.getNombre())){
-                     rowSeleccion=row;
-                     if((model.getValueAt(rowSeleccion, Columnas.SUSCRIPCION).equals(jug.getModo_suscripcion())))
-                         combo1.setBackground(Color.BLUE);
-                 }else combo1.setBackground((isSelected) ? colorFondo : Color.GREEN);
-              
-              return combo1;
-            }
-            this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
-            this.setFont(bold);
-            return this;
-        }
-*/
+ 
 //--------------------------------------------------------------------------------------------------numeros
     
         if (tipo.equals("numerico")) {
@@ -131,7 +95,7 @@ public class Celda extends DefaultTableCellRenderer {
             this.setFont(bold);
             this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
             
-            if(value!=null){
+            if(value!=null && model.getValueAt(row, 1)!=null ){
                 if (model.getValueAt(row, 1).equals(jug.getNombre())) {
                     rowSeleccion = row; 
                    
@@ -170,16 +134,8 @@ public class Celda extends DefaultTableCellRenderer {
                     
             JugadorBD jugadorbd= new JugadorBD();
             Jugador jugaadmin = new Jugador();
-//--------------------------------------------------------------------------------------------------si es administrador            
-            if(foco==row){
-                    if(jug.getRol().equals("admin")){
-                        
-                        jugaadmin.setNombre(model.getValueAt(row, 1).toString());
-                        jugaadmin.setAsistio(true);
-                        System.out.println("verdad "+jugaadmin.getNombre());
-                        //jugadorbd.updateJugador(jugaadmin);
-                    } 
-            }
+       
+         
 //--------------------------------------------------------------------------------------------------si di clicl y quedo true actualiza                 
             if (value.equals(true)){
                 check.setText("si");

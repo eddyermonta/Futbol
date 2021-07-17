@@ -16,6 +16,8 @@ public class Agregar_Ocasional extends javax.swing.JFrame {
      */
     public Agregar_Ocasional() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -27,25 +29,39 @@ public class Agregar_Ocasional extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxJugadores = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButtonAgregar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableJugadores = new javax.swing.JTable();
+        jComboBoxJugadores = new javax.swing.JComboBox<>();
         jCheckBoxEstandar = new javax.swing.JCheckBox();
         jCheckBoxOcasional = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableJugadores = new javax.swing.JTable();
+        jButtonAgregar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Jugador");
-
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("Jugador ocasional");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 340, -1));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Jugador");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Forma");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
 
-        jButtonAgregar.setText("Agregar");
+        getContentPane().add(jComboBoxJugadores, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 150, -1));
+
+        jCheckBoxEstandar.setText("Estandar");
+        getContentPane().add(jCheckBoxEstandar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, -1, -1));
+
+        jCheckBoxOcasional.setText("solidaria");
+        getContentPane().add(jCheckBoxOcasional, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, -1, -1));
 
         jTableJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -60,64 +76,15 @@ public class Agregar_Ocasional extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableJugadores);
 
-        jCheckBoxEstandar.setText("Estandar");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 375, 107));
 
-        jCheckBoxOcasional.setText("solidaria");
+        jButtonAgregar.setBackground(new java.awt.Color(51, 204, 0));
+        jButtonAgregar.setText("Agregar");
+        getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 108, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(63, 63, 63)
-                        .addComponent(jComboBoxJugadores, 0, 146, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(76, 76, 76))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCheckBoxEstandar)
-                        .addGap(51, 51, 51)
-                        .addComponent(jCheckBoxOcasional))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBoxJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jCheckBoxEstandar)
-                    .addComponent(jCheckBoxOcasional))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(jButtonAgregar)
-                .addGap(73, 73, 73))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/JugadoresOcacionales1.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +135,7 @@ public class Agregar_Ocasional extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTableJugadores;
     // End of variables declaration//GEN-END:variables

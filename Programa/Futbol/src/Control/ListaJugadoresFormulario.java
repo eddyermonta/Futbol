@@ -5,7 +5,6 @@
  */
 package Control;
 
-import BaseDatos.IdentificacionBD;
 import Control.Jtablemodelo.Encabezado;
 import Control.Jtablemodelo.Columnas;
 import Control.Jtablemodelo.Celda;
@@ -15,7 +14,6 @@ import Modelo.Jugador;
 import Vistas.Agregar_Ocasional;
 import Vistas.Calificacion;
 import Vistas.Infracciones;
-import Vistas.Inicio_sesion;
 import Vistas.ListaAutomatica;
 import Vistas.ListaJugadores;
 import java.awt.Point;
@@ -41,6 +39,7 @@ import javax.swing.table.TableColumn;
  *
  * @author eduar
  */
+
 public class ListaJugadoresFormulario implements ActionListener {
 
     ListaJugadores listaJugadoresVista;
@@ -51,42 +50,72 @@ public class ListaJugadoresFormulario implements ActionListener {
     DefaultTableModel tabla3; 
     DefaultTableModel tabla;
     ArrayList<Jugador> Listaequipo1;
+    int rowAtPoint=0;
+    int rowAtPoint2=0;
     
-    public ListaJugadoresFormulario(Object[] datosocasionales,ListaJugadores listaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo){
+    public ListaJugadoresFormulario(ListaJugadores listaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo){
         this.listaJugadoresVista = listaJugadoresVista;
         this.jugadorModelo = jugadorModelo;
         this.identificacionModelo = identificacionModelo;
         this.listaJugadoresVista.jButtonAgregarOcasional.addActionListener(this);
-        this.listaJugadoresVista.jButtonAtras.addActionListener(this);
         this.listaJugadoresVista.jButtonConfirmarEquipos.addActionListener(this);
         this.listaJugadoresVista.jButtonFormarEquipos.addActionListener(this);
         this.listaJugadoresVista.jButtonInfracciones.addActionListener(this);
         
         listaModelo = new Modelo.Iterator.ListaJugadores(); //listaj
         Itf_iterator iteracion = listaModelo.getIterator();
+  
         
-        this.jugadorModelo.setUsuario(identificacionModelo.getUsuario());
-        this.jugadorModelo.setRol(identificacionModelo.getRol());
-       
+        actualizarDatosInicio();
         
         DefaultTableModel tabla = new DefaultTableModel();
         tabla=generarTablaOriginal(iteracion);
         
         generarEquipos(iteracion,tabla);
         deshabilitarJugador();
-        
+  
+    }
 
-        JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA " + identificacionModelo.getRol() + " " + identificacionModelo.getUsuario());
+    public ListaJugadoresFormulario() {
+    }
     
-        if (datosocasionales[0]!=null) {
-            if(tabla1.getRowCount()<5){
-            tabla1.addRow(datosocasionales);
-            System.out.println("agrego 1");
-        } else if(tabla3.getRowCount()<5){
-             tabla3.addRow(datosocasionales);
-             System.out.println("agrego 2");
+  
+    public ListaJugadoresFormulario(DefaultTableModel tb1,DefaultTableModel tb2, Object[] datosocasionales) {
+        this.tabla1=tb1;
+        this.tabla3=tb2;
+        if(!buscarRepetidoTabla(tabla1, tabla3, datosocasionales)){
+            for (int i = 4; i >= 0; i--) {
+                if(contarTabla(tabla1)<5) tabla1.setValueAt(datosocasionales[i], FilaVacia(tabla1), i);
+                else if(contarTabla(tabla3)<5)tabla3.setValueAt(datosocasionales[i], FilaVacia(tabla3), i);
+            } 
+        }else JOptionPane.showMessageDialog(null,"El jugador esta repetido");
+        
+    }
+    
+      public void actualizarDatosInicio(){
+        this.jugadorModelo.setUsuario(identificacionModelo.getUsuario());
+        this.jugadorModelo.setRol(identificacionModelo.getRol());
+        JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA " + identificacionModelo.getRol() + " " + identificacionModelo.getUsuario());
+    }
+
+   
+  
+    public int FilaVacia(DefaultTableModel tabla){
+        int contar=0;
+        for (int i = 0; i <tabla.getRowCount(); i++) {
+            if(tabla.getValueAt(i, 0)==null)
+                return contar;
+            else contar ++;
         }
+        return contar;
+    }
+    public int contarTabla(DefaultTableModel tabla){
+        int contar=0;
+        for (int i = 0; i <tabla.getRowCount(); i++) {
+            if(tabla.getValueAt(i, 0)!=null)
+              contar ++;
         }
+        return contar;
     }
     
     public DefaultTableModel generarTablaOriginal(Itf_iterator iteracion){
@@ -114,43 +143,76 @@ public class ListaJugadoresFormulario implements ActionListener {
         
         
         JPopupMenu menuLista= new JPopupMenu();
+        
         if(jugadorModelo.getRol().equals("admin")){
             
         
-        JMenuItem agregar = new JMenuItem("agregar", new ImageIcon(getClass().getResource("agregar.png")));
+        JMenuItem agregar = new JMenuItem("agregar", new ImageIcon(getClass().getResource("/Imagenes/agregar.png")));
+        
+        
         menuLista.add(agregar);
-         menuLista.addPopupMenuListener(new PopupMenuListener() {
-            int rowAtPoint,jugadoresEquipos;
+        
+       
+        menuLista.addPopupMenuListener(new PopupMenuListener() {
+            
+             int rowAtPoint, jugadoresEquipos;
             @Override
              public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
              SwingUtilities.invokeLater(() -> {
+                     System.out.println("seleccionado"+listaJugadoresVista.jTableListaJugadores.getSelectedColumn());
                      rowAtPoint = listaJugadoresVista.jTableListaJugadores.rowAtPoint(SwingUtilities.convertPoint(menuLista, new Point(0, 0), listaJugadoresVista.jTableListaJugadores));
-                    System.out.println(rowAtPoint);
-                    jugadoresEquipos=tabla1.getRowCount()+tabla3.getRowCount();
+                     jugadoresEquipos=contarTabla(tabla1)+contarTabla(tabla3);
+                      
+                     
+                    
+                            
                 });
              }
-             
-
            @Override
            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                    if (rowAtPoint > -1) {                                      
-                       // if(jugadoresEquipos==10){
-                            if(indiceSolidario(tabla1)!=0)
-                                reemplazarSolidario(ObtenerDatosTabla(rowAtPoint),tabla1,indiceSolidario(tabla1)); //-> tomo el objeto con que voy a remplazar
-                            else if(indiceSolidario(tabla3)!=0)
-                                reemplazarSolidario(ObtenerDatosTabla(rowAtPoint),tabla3,indiceSolidario(tabla3));
-                    //}
-                        System.out.println("lista de jugadores en equipo "+jugadoresEquipos);  
+            if (rowAtPoint > -1) {  
+                        Object [] datosSeleccionados = ObtenerDatosTabla(rowAtPoint);
+                        if(!buscarRepetidoTabla(tabla1,tabla3, datosSeleccionados)){
+                            if(jugadoresEquipos==10){
+                                if(TableToSet(tabla1, tabla3)!=null)
+                                    reemplazarSolidario(datosSeleccionados,TableToSet(tabla1, tabla3),ObtenerIndice(TableToSet(tabla1, tabla3)));
+                            }else{
+                                int equipoEscogido = Integer.parseInt(JOptionPane.showInputDialog(
+                                        "seleccione el equipo deseado \n"
+                                                + "|1| equipo 1 \n"
+                                                + "|2| equipo 2"));
+                                switch (equipoEscogido) {
+                                    case 1:
+                                        if(FilaVacia(tabla1)!=0 && FilaVacia(tabla1)!=5) reemplazarSolidario(datosSeleccionados, tabla1, FilaVacia(tabla1));
+                                        else{
+                                            if (FilaVacia(tabla3)!=0 && FilaVacia(tabla3)!=5) reemplazarSolidario(datosSeleccionados, tabla3, FilaVacia(tabla3));
+                                            JOptionPane.showMessageDialog(null, "equipo 1 esta lleno, agregado a equipo 2");
+                                        }  break;
+                                    case 2:
+                                        if(FilaVacia(tabla3)!=0 && FilaVacia(tabla3)!=5) reemplazarSolidario(datosSeleccionados, tabla3, FilaVacia(tabla3));
+                                        else{
+                                            if (FilaVacia(tabla1)!=0 && FilaVacia(tabla1)!=5) reemplazarSolidario(datosSeleccionados, tabla1, FilaVacia(tabla1));
+                                            JOptionPane.showMessageDialog(null, "equipo 1 esta lleno, agregado a equipo 2");
+                                        }  break;
+                                    default:
+                                        JOptionPane.showMessageDialog(null, "Solo existen equipos 1 y 2");
+                                        break;
+                                }
+                                
+                            } 
+                        } else JOptionPane.showMessageDialog(null, "el jugador seleccionado ya esta en uno de los 2 equipos");                    
                     }
-           }
+                }
+          
            @Override
            public void popupMenuCanceled(PopupMenuEvent e) {
                System.out.println("cancelado");
            }
-
          });
+         
      
         this.listaJugadoresVista.jTableListaJugadores.setComponentPopupMenu(menuLista);
+        }
         
        if(jugadorModelo.getRol().equals("jugador")){
         TableColumn sportColumn = this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(2);
@@ -159,38 +221,58 @@ public class ListaJugadoresFormulario implements ActionListener {
         comboBox.addItem("ocasional");
         sportColumn.setCellEditor(new DefaultCellEditor(comboBox)); 
         }
-       
+  
+     return tabla;
+    }
+    
+    public DefaultTableModel TableToSet(DefaultTableModel tabla, DefaultTableModel tabla2){
+        for (int j = 0; j<tabla.getRowCount(); j++) {
+            if(tabla.getValueAt(j, Columnas.FORMA).equals("solidaria"))
+                return tabla;
+            else if (tabla2.getValueAt(j, Columnas.FORMA).equals("solidaria"))
+                return tabla2;
+        }
+        return null;
+    }
+    
+    
+    public int ObtenerIndice(DefaultTableModel tabla){
+        if(tabla!=null){
+           for (int j = 0; j<tabla.getRowCount(); j++) {
+               if(tabla.getValueAt(j, Columnas.FORMA).equals("solidaria"))
+                   return (int)tabla.getValueAt(j, 0);
+            }
         
-       
-    } return tabla;
+        }return -1;
     }
     
     public void reemplazarSolidario(Object datos[],DefaultTableModel tabla, int indice){
-        
-              for (int i = 0; i < tabla1.getColumnCount(); i++) {
-                  tabla.setValueAt(datos[i],indice, i);
-                  
-                  Listaequipo1.set(indice,new Jugador()); //pendiente a modificar
+              for (int i = 0; i < tabla.getColumnCount(); i++) {
+                  tabla.setValueAt(datos[i],indice, i);               
                  }
-              
-              
-              
     }
+
     
-    public int indiceSolidario(DefaultTableModel tabla){
-        int j = 0;
-        for (int i = 0; i < tabla.getRowCount(); i++) {
-            for (j=0; j < tabla.getRowCount(); j++) {
-                    if(tabla.getValueAt(j, i).equals("solidaria"))
-                        return j;
-                    
-            }
-    }
-        return j;
+    public boolean buscarRepetidoTabla(DefaultTableModel tabla,DefaultTableModel tabla2,Object datos[]){
+       boolean estado =false;
+       for (int i=0; i<tabla.getRowCount();i++){
+           if(datos[1].equals(tabla.getValueAt(i, 1)) || datos[1].equals(tabla2.getValueAt(i, 1))){ // quede aqui
+                 return true;
+       }
+       }
+        return estado;
     }
     
     public Object[] ObtenerDatosTabla(int rowpoint){
         Object[] datos = new Object[7];
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+             datos[i]=tabla.getValueAt(rowpoint, i);
+           
+        }
+        return datos;
+    }
+    public Object[] ObtenerDatosTabla(int rowpoint,DefaultTableModel tabla){
+        Object[] datos = new Object[5];
         for (int i = 0; i < tabla.getColumnCount(); i++) {
              datos[i]=tabla.getValueAt(rowpoint, i);
            
@@ -273,47 +355,71 @@ public class ListaJugadoresFormulario implements ActionListener {
         generarTablaequipos(this.listaJugadoresVista.jTableEquipo2, iteracion,tabla3);
         
           Listaequipo1 = new ArrayList<>();
+          
           for (int i = 0; i < 10; i++) {
-            if(i<5){
-                tabla1.addRow(llenarObjeto(i, llenarArray(Listaequipo1, iteracion)));
-         
+                if(i<5) tabla1.addRow(llenarObjeto(i, llenarArray(Listaequipo1, iteracion)));
+                else tabla3.addRow(llenarObjeto(i, llenarArray(Listaequipo1, iteracion)));
             }
-                 
-            else{
-                if(llenarObjeto(i, llenarArray(Listaequipo1, iteracion))[1]!=null)
-                tabla3.addRow(llenarObjeto(i, llenarArray(Listaequipo1, iteracion)));
-                
-                
-            }  
-        }   
+         
        cuerpoTablaEquipos(this.listaJugadoresVista.jTableEquipo2);
        cuerpoTablaEquipos(this.listaJugadoresVista.jTableEquipo1);
               
         EncabezadoTabla(this.listaJugadoresVista.jTableEquipo1);
         EncabezadoTabla(this.listaJugadoresVista.jTableEquipo2);
-        
+       
         JPopupMenu menuLista= new JPopupMenu();
-        JMenuItem eliminar = new JMenuItem("eliminar", new ImageIcon(getClass().getResource("eliminar.png")));
+        JMenuItem eliminar = null;
+        if(jugadorModelo.getRol().equals("jugador")){
+            eliminar = new JMenuItem("darse de baja", new ImageIcon(getClass().getResource("/Imagenes/eliminar.png")));
+        }
+        
+        if(jugadorModelo.getRol().equals("admin")){
+        
+            JMenuItem cambiar = new JMenuItem("Mover jugador", new ImageIcon(getClass().getResource("/Imagenes/Cambiar.jpg")));
+            eliminar = new JMenuItem("eliminar", new ImageIcon(getClass().getResource("/Imagenes/eliminar.png")));
+        
+            cambiar.addActionListener((ActionEvent e)->{
+            if(rowAtPoint>-1){
+                if(FilaVacia(tabla3)<5){
+                    reemplazarSolidario(ObtenerDatosTabla(rowAtPoint,tabla1), tabla3, FilaVacia(tabla3));
+                    EliminarJugador(tabla1, rowAtPoint);
+                    
+                }
+                    
+                  
+                }
+            else if (rowAtPoint2>-1){ // here
+                moverJugador(tabla1, tabla3, rowAtPoint2);
+            }
+            });
+            menuLista.add(cambiar);
+        }
+    
+        eliminar.addActionListener((ActionEvent e)->{
+           if(rowAtPoint>-1){ // tabla 1
+               EliminarJugador(tabla1, rowAtPoint);
+               
+           }else if (rowAtPoint2>-1){
+               EliminarJugador(tabla3, rowAtPoint2);
+           }
+            
+        });
+          
         menuLista.add(eliminar);
         
         menuLista.addPopupMenuListener(new PopupMenuListener() {
-            int rowAtPoint;
+            
             @Override
              public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
              SwingUtilities.invokeLater(() -> {
-                     rowAtPoint = listaJugadoresVista.jTableListaJugadores.rowAtPoint(SwingUtilities.convertPoint(menuLista, new Point(0, 0), listaJugadoresVista.jTableListaJugadores));
-                    System.out.println(rowAtPoint);
-                    if (rowAtPoint > -1) {
-                        listaJugadoresVista.jTableListaJugadores.setRowSelectionInterval(rowAtPoint, rowAtPoint);
-                        System.out.println("sas");
-                    }
-                });
+                     rowAtPoint = listaJugadoresVista.jTableEquipo1.rowAtPoint(SwingUtilities.convertPoint(menuLista, new Point(0, 0), listaJugadoresVista.jTableEquipo1));
+                     rowAtPoint2 = listaJugadoresVista.jTableEquipo2.rowAtPoint(SwingUtilities.convertPoint(menuLista, new Point(0, 0), listaJugadoresVista.jTableEquipo2));
+                     
+             });
              }
 
              @Override
-             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                    tabla1.removeRow(rowAtPoint);
-             }
+             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
 
              @Override
              public void popupMenuCanceled(PopupMenuEvent e) {
@@ -325,6 +431,35 @@ public class ListaJugadoresFormulario implements ActionListener {
         this.listaJugadoresVista.jTableEquipo2.setComponentPopupMenu(menuLista);
         
     }
+    
+    public void moverJugador(DefaultTableModel tablaCambio, DefaultTableModel tablaActual, int seleccion){
+        if(FilaVacia(tablaCambio)<5){
+                    reemplazarSolidario(ObtenerDatosTabla(seleccion,tablaActual), tablaCambio, FilaVacia(tablaCambio));
+                    EliminarJugador(tablaActual, seleccion);
+                    
+                }
+     
+    }
+    
+    public void EliminarJugador(DefaultTableModel tabla1, int rowAtPoint ){
+        if(jugadorModelo.getRol().equals("admin")){
+                   reemplazarSolidario(new Object[5], tabla1, rowAtPoint);
+                   JOptionPane.showMessageDialog(null, "jugador eliminado");
+                   
+               }else if (jugadorModelo.getRol().equals("jugador") && (jugadorModelo.getNombre().equals(tabla1.getValueAt(rowAtPoint, Columnas.NOMBRE)))){
+                String nombre = JOptionPane.showInputDialog(null, "debe elegir reemplazo si no se le generara una infraccion");
+                   
+                for (int i = 0; i < tabla.getRowCount(); i++) {
+                       if (tabla.getValueAt(i, Columnas.NOMBRE).equals(nombre) && !buscarRepetidoTabla(this.tabla1, tabla3, ObtenerDatosTabla(i))) {
+                           reemplazarSolidario(ObtenerDatosTabla(i), tabla1, rowAtPoint);
+                           System.out.println("datos del personaje"+Arrays.toString(ObtenerDatosTabla(i))+"\n"+
+                                   "personaje encontrado en fila"+ i+" columna"+Columnas.NOMBRE);    
+                       } else System.out.println("usted no aprende verdad");
+                   }
+               }else System.out.println("la fila seleccionada no es su usuario");
+    }
+    
+    
     
     public void cuerpoTablaEquipos(JTable equipo){
         equipo.getColumnModel().getColumn(4).setCellRenderer(new Celda("numerico",jugadorModelo));
@@ -338,9 +473,8 @@ public class ListaJugadoresFormulario implements ActionListener {
 
     //llenar datos de los equipos
     public Object[] llenarObjeto(int i, ArrayList<Jugador> lista) {
-        Object[] datos = new Object[5];
-       
-            if (i < lista.size()) {
+       Object[] datos = new Object[5];
+            if (i < lista.size() && lista.get(i).isAsistio()) {
              datos[0] = i;
              datos[1] = lista.get(i).getNombre();
              datos[2] = lista.get(i).getModo_suscripcion();
@@ -348,7 +482,7 @@ public class ListaJugadoresFormulario implements ActionListener {
              datos[4] = lista.get(i).getPromedio_general();
         }
         
-        System.out.println(datos[0]);
+        
         return datos;
     }
 
@@ -366,32 +500,24 @@ public class ListaJugadoresFormulario implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == listaJugadoresVista.jButtonAgregarOcasional) {
             Agregar_Ocasional ocasionalVista = new Agregar_Ocasional();
-            AgregarOcasionalFormulario agregarFormulario = new AgregarOcasionalFormulario(tabla1,tabla3,listaJugadoresVista, listaModelo, identificacionModelo, jugadorModelo, ocasionalVista);
+            AgregarOcasionalFormulario agregarFormulario = new AgregarOcasionalFormulario(tabla1,tabla3, listaModelo.getIterator(), ocasionalVista,listaJugadoresVista);
             ocasionalVista.setVisible(true);
-        }
-        if (e.getSource() == listaJugadoresVista.jButtonAtras) {
-            Inicio_sesion inicio_sesionVista = new Inicio_sesion();
-             identificacionModelo = new Identificacion();
-            IdentificacionBD identificacionDatos = new IdentificacionBD();
-
-            InicioSesionFormulario sesionFormulario = new InicioSesionFormulario(inicio_sesionVista, identificacionModelo, identificacionDatos);
             listaJugadoresVista.dispose();
-            inicio_sesionVista.setVisible(true);
-
         }
+
         if (e.getSource() == listaJugadoresVista.jButtonConfirmarEquipos) {
             Calificacion calificacionVista = new Calificacion();
-            CalificacionFormulario CalificacionFormulario = new CalificacionFormulario(calificacionVista, listaJugadoresVista, identificacionModelo, jugadorModelo);
+            CalificacionFormulario CalificacionFormulario = new CalificacionFormulario(calificacionVista, listaJugadoresVista);
             calificacionVista.setVisible(true);
         }
         if (e.getSource() == listaJugadoresVista.jButtonFormarEquipos) {
             ListaAutomatica ListaAutoVista = new ListaAutomatica();
-            ListaAutomaticaFormulario ListaAutomarticaFormulario = new ListaAutomaticaFormulario(ListaAutoVista, listaJugadoresVista, identificacionModelo, jugadorModelo);
+            ListaAutomaticaFormulario ListaAutomarticaFormulario = new ListaAutomaticaFormulario(ListaAutoVista, listaJugadoresVista);
             ListaAutoVista.setVisible(true);
         }
         if (e.getSource() == listaJugadoresVista.jButtonInfracciones) {
             Infracciones infraccionesVista = new Infracciones();
-            InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario(infraccionesVista, listaJugadoresVista, identificacionModelo, jugadorModelo);
+            InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario(infraccionesVista, listaJugadoresVista);
             infraccionesVista.setVisible(true);
         }
     }

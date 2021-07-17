@@ -16,6 +16,8 @@ public class Infracciones extends javax.swing.JFrame {
      */
     public Infracciones() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -29,64 +31,52 @@ public class Infracciones extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jComboBoxJugador = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jComboBoxTipoInfraccion = new javax.swing.JComboBox<>();
-        jButtonAplicarInfraccion = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jButtonEliminarInfraccion = new javax.swing.JButton();
+        jButtonAplicarInfraccion = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Jugador");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
+        jComboBoxJugador.setBackground(new java.awt.Color(0, 0, 204));
         jComboBoxJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxJugador.setAlignmentX(1.0F);
+        jComboBoxJugador.setAlignmentY(1.0F);
+        jComboBoxJugador.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        getContentPane().add(jComboBoxJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 347, -1));
 
-        jLabel2.setText("Infraccion");
-
+        jComboBoxTipoInfraccion.setBackground(new java.awt.Color(0, 0, 204));
         jComboBoxTipoInfraccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inasistencia al encuentro", "darse de baja sin remplazo", "otra razon" }));
+        jComboBoxTipoInfraccion.setAlignmentX(1.0F);
+        jComboBoxTipoInfraccion.setAlignmentY(1.0F);
+        jComboBoxTipoInfraccion.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        getContentPane().add(jComboBoxTipoInfraccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 347, -1));
 
-        jButtonAplicarInfraccion.setText("Aplicar infraccion");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Infraccion");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
+        jButtonEliminarInfraccion.setBackground(new java.awt.Color(0, 0, 0));
         jButtonEliminarInfraccion.setText("Eliminar infraccion");
+        jButtonEliminarInfraccion.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        getContentPane().add(jButtonEliminarInfraccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxJugador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxTipoInfraccion, 0, 1, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 66, Short.MAX_VALUE)
-                        .addComponent(jButtonEliminarInfraccion)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButtonAplicarInfraccion)))
-                .addGap(71, 71, 71))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBoxJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBoxTipoInfraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAplicarInfraccion)
-                    .addComponent(jButtonEliminarInfraccion))
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
+        jButtonAplicarInfraccion.setBackground(new java.awt.Color(0, 0, 0));
+        jButtonAplicarInfraccion.setText("Aplicar infraccion");
+        jButtonAplicarInfraccion.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        getContentPane().add(jButtonAplicarInfraccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Infracciones2.jpg"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,5 +123,6 @@ public class Infracciones extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> jComboBoxTipoInfraccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

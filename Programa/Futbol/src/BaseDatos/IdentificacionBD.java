@@ -9,6 +9,7 @@ import Modelo.Identificacion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,11 +49,11 @@ public class IdentificacionBD {
             while (rs.next()) {
                 ideBase.setRol(rs.getString("Rol"));        
             } 
-            if(!IdeFormu.getRol().equals(ideBase.getRol())){
+            if(IdeFormu.getRol().equals(ideBase.getRol())){
                 estado=true;
-                System.out.println("no existe un admin");
+                JOptionPane.showMessageDialog(null, "ya existe un admin en la base de datos");
             }
-            else System.out.println("ya existe un admin bro");
+            
             
         } catch (SQLException e) {
             System.err.println("error");

@@ -28,6 +28,7 @@ public class AdministradorBD {
             st.setString(5, admin.getNombre());
             st.setString(6, admin.getCorreo());
             st.setString(7, admin.getRol());
+           // st.execute();
             st.execute();
             
         } catch (SQLException e) {

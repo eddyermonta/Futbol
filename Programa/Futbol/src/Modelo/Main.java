@@ -18,7 +18,7 @@ public class Main {
         Identificacion iden = new Identificacion();
         IdentificacionBD idedatos = new IdentificacionBD();
 
-        InicioSesionFormulario form = new InicioSesionFormulario(ini, iden, idedatos);
+        InicioSesionFormulario form = new InicioSesionFormulario(ini, iden);
 
         ini.setVisible(true);
         

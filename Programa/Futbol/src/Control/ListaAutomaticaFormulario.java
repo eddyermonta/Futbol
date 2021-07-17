@@ -19,25 +19,19 @@ import java.awt.event.ActionListener;
 public class ListaAutomaticaFormulario implements ActionListener{
     ListaAutomatica ListaAutoVista;
     ListaJugadores  ListaJugadoresVista;
-    Identificacion identificacionModelo;
-    Jugador jugadorModelo;
-    Object [] dato ;
-    public ListaAutomaticaFormulario(ListaAutomatica ListaAutoVista, ListaJugadores ListaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo) {
+   
+    public ListaAutomaticaFormulario(ListaAutomatica ListaAutoVista, ListaJugadores ListaJugadoresVista) {
         this.ListaAutoVista = ListaAutoVista;
         this.ListaJugadoresVista = ListaJugadoresVista;
-        this.identificacionModelo = identificacionModelo;
-        this.jugadorModelo = jugadorModelo;
         this.ListaAutoVista.jButtonFormacion.addActionListener(this);
-         dato = new Object[4];
+        
     }
-    
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.ListaAutoVista.jButtonFormacion){
             
-            ListaJugadoresFormulario ListaJugadoresFormulario = new ListaJugadoresFormulario(dato,ListaJugadoresVista, identificacionModelo, jugadorModelo);
+            ListaJugadoresFormulario ListaJugadoresFormulario = new ListaJugadoresFormulario();
             ListaAutoVista.dispose();
             ListaJugadoresVista.setVisible(true);
         }

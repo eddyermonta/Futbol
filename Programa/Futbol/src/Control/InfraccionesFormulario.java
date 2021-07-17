@@ -19,16 +19,11 @@ import java.awt.event.ActionListener;
 public class InfraccionesFormulario implements ActionListener{
     Infracciones infraccionesVista;
     ListaJugadores  ListaJugadoresVista;
-    Identificacion identificacionModelo;
-    Jugador jugadorModelo;
-    Object [] dato ;
+   
     
-    public InfraccionesFormulario(Infracciones infraccionesVista, ListaJugadores ListaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo) {
+    public InfraccionesFormulario(Infracciones infraccionesVista, ListaJugadores ListaJugadoresVista) {
         this.infraccionesVista = infraccionesVista;
         this.ListaJugadoresVista = ListaJugadoresVista;
-        this.identificacionModelo = identificacionModelo;
-        this.jugadorModelo = jugadorModelo;
-        dato = new Object[4];
         this.infraccionesVista.jButtonAplicarInfraccion.addActionListener(this);
         this.infraccionesVista.jButtonEliminarInfraccion.addActionListener(this);
     }
@@ -40,7 +35,7 @@ public class InfraccionesFormulario implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==infraccionesVista.jButtonAplicarInfraccion){
            
-            ListaJugadoresFormulario ListaJugadoresFormulario = new ListaJugadoresFormulario(dato,ListaJugadoresVista, identificacionModelo, jugadorModelo);
+            ListaJugadoresFormulario ListaJugadoresFormulario = new ListaJugadoresFormulario();
             infraccionesVista.dispose();
             ListaJugadoresVista.setVisible(true);
             

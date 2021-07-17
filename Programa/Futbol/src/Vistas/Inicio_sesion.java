@@ -16,6 +16,8 @@ public class Inicio_sesion extends javax.swing.JFrame {
      */
     public Inicio_sesion() {
         initComponents();
+         this.setLocationRelativeTo(null);
+         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     /**
@@ -27,77 +29,61 @@ public class Inicio_sesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextFieldUsuario = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButtonInicio = new javax.swing.JButton();
         jButtonNuevoUsuario = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jButtonInicio = new javax.swing.JButton();
         jComboTipoUsuario = new javax.swing.JComboBox<>();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jTextFieldUsuario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 255, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 78, 130, -1));
-
-        jLabel1.setText("Usuario");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 130, -1));
-
-        jButtonInicio.setText("Iniciar sesion");
-        getContentPane().add(jButtonInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 140, -1));
 
         jButtonNuevoUsuario.setText("Nuevo usuario");
-        getContentPane().add(jButtonNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 130, -1));
+        jButtonNuevoUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonNuevoUsuario.setOpaque(false);
+        getContentPane().add(jButtonNuevoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 140, -1));
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 0));
-        jPanel1.setForeground(new java.awt.Color(51, 255, 0));
-
-        jLabel4.setText("Tipo usuario");
-
-        jLabel2.setText("Contraseña");
+        jButtonInicio.setText("Iniciar sesion");
+        jButtonInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonInicio.setOpaque(false);
+        getContentPane().add(jButtonInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 140, -1));
 
         jComboTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "jugador", "admin" }));
+        jComboTipoUsuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jComboTipoUsuario.setOpaque(false);
         jComboTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboTipoUsuarioActionPerformed(evt);
             }
         });
+        getContentPane().add(jComboTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 75, -1));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 130, -1));
+        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 130, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))))
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(106, 106, 106))
-        );
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Tipo usuario");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contraseña");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Usuario");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 50, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Inicio_Sesion4.jpeg"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -148,7 +134,7 @@ public class Inicio_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
     public javax.swing.JPasswordField jPasswordField1;
     public javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables

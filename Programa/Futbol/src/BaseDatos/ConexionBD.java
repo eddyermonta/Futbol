@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 /**asass
  * @author eduar
- */
+ dsds*/
 public class ConexionBD {
 
     private static Connection con;

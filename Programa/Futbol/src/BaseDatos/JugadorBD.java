@@ -200,8 +200,37 @@ public class JugadorBD {
         Jugador jugador = new Jugador();
         try{
             query=ConexionBD.Conectar().createStatement();
-            rs=query.executeQuery("SELECT * from persona,jugador where Usuario="+"'"+datosInicio.getUsuario()+"'"+
-                    "and id_Persona=Persona_id_Persona");
+            rs=query.executeQuery("SELECT * from persona as p, jugador as j \n" +
+                                    "where p.Usuario='"+datosInicio.getUsuario()+"'\n" +
+                                    "and j.idJugador=p.id_Persona");
+            while (rs.next()) { 
+                jugador.setCedula(rs.getString("Cedula"));
+                jugador.setCorreo(rs.getString("Correo"));
+                jugador.setNombre(rs.getString("Nombre"));
+                jugador.setAsistio(rs.getBoolean("Asistencia"));
+                jugador.setCantidad_infracciones(rs.getInt("CantidadInfracciones"));
+                jugador.setCantidad_partidos_jugados(rs.getInt("CantidadPartidosJugados"));
+                jugador.setForma_juego(rs.getString("FormaJuego"));
+                jugador.setModo_suscripcion(rs.getString("ModoSuscripcion"));
+                jugador.setPenalizado(rs.getBoolean("Penalizado"));
+                jugador.setPromedio_general(rs.getDouble("PromedioGeneral"));
+                
+            }}
+        catch(SQLException e){
+            System.err.println("err"+e);
+        }
+        return jugador;
+    }
+    
+    public Jugador LlenarJugador(Jugador datosInicio){
+        Statement query;
+        ResultSet rs;
+        Jugador jugador = new Jugador();
+        try{
+            query=ConexionBD.Conectar().createStatement();
+            rs=query.executeQuery("SELECT * from persona as p, jugador as j \n" +
+                                    "where p.nombre='"+datosInicio.getNombre()+"'\n" +
+                                    "and j.idJugador=p.id_Persona");
             while (rs.next()) { 
                 jugador.setCedula(rs.getString("Cedula"));
                 jugador.setCorreo(rs.getString("Correo"));
@@ -222,7 +251,8 @@ public class JugadorBD {
     }
     
     public void updateJugador(Jugador jugador){
-         try {
+       
+        try {
              String sql = "update jugador,persona set asistencia = ? \n" +
             "where Persona_id_Persona = id_Persona\n" +
             "and Nombre='"+jugador.getNombre()+"'";
@@ -233,7 +263,8 @@ public class JugadorBD {
              
              int rowsUpdated = statement.executeUpdate();
              if (rowsUpdated > 0) {
-                 
+                 System.out.println("actualizo");
+                    
              }} catch (SQLException ex) {
              Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
          }

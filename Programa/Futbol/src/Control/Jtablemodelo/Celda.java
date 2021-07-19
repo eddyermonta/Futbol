@@ -5,7 +5,9 @@
  */
 package Control.Jtablemodelo;
 
+import BaseDatos.InfraccionesBD;
 import BaseDatos.JugadorBD;
+import Control.InfraccionesFormulario;
 import Control.ListaJugadoresFormulario;
 import Modelo.Jugador;
 import java.awt.Color;
@@ -25,10 +27,17 @@ public class Celda extends DefaultTableCellRenderer {
     private Font normal = new Font("Verdana", Font.PLAIN, 12);
     private Font bold = new Font("Verdana", Font.BOLD, 12);
     Jugador jug;
+    int penalizado;
 
     public Celda(String tipo, Jugador jug) {
         this.tipo = tipo;
         this.jug = jug;
+    }
+
+    public Celda(String tipo,Jugador jug, int penalizado) {
+        this.tipo = tipo;
+        this.jug = jug;
+        this.penalizado=penalizado;
     }
     
 
@@ -120,8 +129,8 @@ public class Celda extends DefaultTableCellRenderer {
             JCheckBox check = new JCheckBox();
             
 //--------------------------------------------------------------------------------------------------modela los check y carga los enable 
-            if (model.getValueAt(row, column).getClass().equals(Boolean.class)) {
-                    check.setSelected(Boolean.parseBoolean(model.getValueAt(row, column).toString()));
+            if (model.getValueAt(row, 5).getClass().equals(Boolean.class)) {
+                    check.setSelected(Boolean.parseBoolean(model.getValueAt(row, 5).toString()));
                 
                 if(jug.getRol().equals("jugador")){
                     if((model.getValueAt(row, 1).equals(jug.getNombre())))
@@ -129,43 +138,71 @@ public class Celda extends DefaultTableCellRenderer {
                 else check.setEnabled(false);
                 }else if(jug.getRol().equals("admin")){
                     check.setEnabled(true);
+                    
                 }
                                  
                     
             JugadorBD jugadorbd= new JugadorBD();
             Jugador jugaadmin = new Jugador();
-       
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+     
          
 //--------------------------------------------------------------------------------------------------si di clicl y quedo true actualiza                 
+            
             if (value.equals(true)){
                 check.setText("si");
                 jug.setAsistio(true);
                     if(hasFocus){
                         if(jug.getNombre()!=null && jug.getRol().equals("jugador") && check.isEnabled()){
-                            System.out.println("personaje actualizado "+jug.getNombre());
                             jugadorbd.updateJugador(jug);
                         }else if (jug.getRol().equals("admin")){
+                            
+                            if(model.getValueAt(row, 5).equals(true) && !jugaadmin.isAsistio() && check.getText().equals("si")){
                             jugaadmin.setNombre(model.getValueAt(row, 1).toString());
-                            System.out.println("personaje actualizado "+jugaadmin.getNombre());
+                            jugadorbd.LlenarJugador(jugaadmin);
+                                penalizado++;
+                                if(penalizado==1){
+                                    System.out.println("penalizado "+penalizado);
+                                    InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario();
+                                    JOptionPane.showMessageDialog(null, "se genero una infraccion por inasistencia");
+                                    jugaadmin.setAsistio(false);
+                                    
+                                    InfraccionesBD infraccionesBd = new InfraccionesBD();
+                                    jugaadmin.setCantidad_infracciones(jugaadmin.getCantidad_infracciones()+1);
+                                    infraccionesBd.Updateinfraccion(jugaadmin);
+                                    this.setEnabled(false);
+
+                                    infraccionesFormulario.GenerarPenalizacion(jugaadmin, row, model);    
+                                }
+                                penalizado=0;
+                            }
+
                             jugaadmin.setAsistio(true);
                             jugadorbd.updateJugador(jugaadmin);
                         }
                     }
-            }else{
+            }else  if (value.equals(false)){
                 jug.setAsistio(false);
                 check.setText("no"); 
                     if(hasFocus){
                         if(jug.getNombre()!=null && jug.getRol().equals("jugador")&& check.isEnabled()){
                             System.out.println("personaje actualizado "+jug.getNombre());
                             jugadorbd.updateJugador(jug);
+                            
                         } else if (jug.getRol().equals("admin")){
+                           
+                                 penalizado--;
+                             
                             jugaadmin.setNombre(model.getValueAt(row, 1).toString());
                             jugaadmin.setAsistio(false);
-                            System.out.println("personaje actualizado "+jugaadmin.getNombre());
+                            
                             jugadorbd.updateJugador(jugaadmin);
+                            
                         }
                     }
                 }
+              
 //--------------------------------------------------------------------------------------------------pinte segun jug iniciado 
             
                  if(model.getValueAt(row, 1).equals(jug.getNombre())){
@@ -181,7 +218,7 @@ public class Celda extends DefaultTableCellRenderer {
             }
         this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
         this.setFont(bold);
-
+            
         return this;
         }
 //--------------------------------------------------------------------------------------------------penalizado
@@ -193,8 +230,8 @@ public class Celda extends DefaultTableCellRenderer {
             this.setHorizontalAlignment(JLabel.CENTER);
             JCheckBox check1 = new JCheckBox();
 //--------------------------------------------------------------------------------------------------modela los check            
-            if (model.getValueAt(row, column).getClass().equals(Boolean.class)) {
-                    check1.setSelected(Boolean.parseBoolean(model.getValueAt(row, column).toString()));
+            if (model.getValueAt(row, 6).getClass().equals(Boolean.class)) {
+                    check1.setSelected(Boolean.parseBoolean(model.getValueAt(row, 6).toString()));
                     
                     if (value.equals(true)){
                        check1.setText("si");

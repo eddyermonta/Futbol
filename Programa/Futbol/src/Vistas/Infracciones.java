@@ -45,14 +45,13 @@ public class Infracciones extends javax.swing.JFrame {
         jLabel1.setText("Jugador");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
-        jComboBoxJugador.setBackground(new java.awt.Color(0, 0, 204));
-        jComboBoxJugador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxJugador.setBackground(new java.awt.Color(102, 102, 255));
         jComboBoxJugador.setAlignmentX(1.0F);
         jComboBoxJugador.setAlignmentY(1.0F);
         jComboBoxJugador.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         getContentPane().add(jComboBoxJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 347, -1));
 
-        jComboBoxTipoInfraccion.setBackground(new java.awt.Color(0, 0, 204));
+        jComboBoxTipoInfraccion.setBackground(new java.awt.Color(102, 102, 255));
         jComboBoxTipoInfraccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inasistencia al encuentro", "darse de baja sin remplazo", "otra razon" }));
         jComboBoxTipoInfraccion.setAlignmentX(1.0F);
         jComboBoxTipoInfraccion.setAlignmentY(1.0F);

@@ -5,6 +5,7 @@
  */
 package Control;
 
+import BaseDatos.InfraccionesBD;
 import Control.Jtablemodelo.Encabezado;
 import Control.Jtablemodelo.Columnas;
 import Control.Jtablemodelo.Celda;
@@ -51,7 +52,8 @@ public class ListaJugadoresFormulario implements ActionListener {
     DefaultTableModel tabla;
     ArrayList<Jugador> Listaequipo1;
     int rowAtPoint=0;
-    int rowAtPoint2=0;
+    int rowAtPoint2=0,penalizado=0;
+    String nombre ="";
     
     public ListaJugadoresFormulario(ListaJugadores listaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo){
         this.listaJugadoresVista = listaJugadoresVista;
@@ -64,7 +66,7 @@ public class ListaJugadoresFormulario implements ActionListener {
         
         listaModelo = new Modelo.Iterator.ListaJugadores(); //listaj
         Itf_iterator iteracion = listaModelo.getIterator();
-  
+        
         
         actualizarDatosInicio();
         
@@ -97,7 +99,8 @@ public class ListaJugadoresFormulario implements ActionListener {
         this.jugadorModelo.setRol(identificacionModelo.getRol());
         JOptionPane.showMessageDialog(null, "BIENVENIDO AL SISTEMA " + identificacionModelo.getRol() + " " + identificacionModelo.getUsuario());
     }
-
+      
+     
    
   
     public int FilaVacia(DefaultTableModel tabla){
@@ -153,6 +156,8 @@ public class ListaJugadoresFormulario implements ActionListener {
         menuLista.add(agregar);
         
        
+        
+        
         menuLista.addPopupMenuListener(new PopupMenuListener() {
             
              int rowAtPoint, jugadoresEquipos;
@@ -304,9 +309,10 @@ public class ListaJugadoresFormulario implements ActionListener {
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.CALIFICACION).setCellRenderer(new Celda("numerico",jugadorModelo));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.FORMA).setCellRenderer(new Celda("texto",jugadorModelo));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.NOMBRE).setCellRenderer(new Celda("texto",jugadorModelo));
-        this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.PENALIZADO).setCellRenderer(new Celda("penalizado",jugadorModelo));
+        this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.PENALIZADO).setCellRenderer(new Celda("penalizado",jugadorModelo,penalizado));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.POSICION).setCellRenderer(new Celda("numerico",jugadorModelo));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.SUSCRIPCION).setCellRenderer(new Celda("texto",jugadorModelo));
+        System.out.println(penalizado);
     
         }
     
@@ -380,16 +386,14 @@ public class ListaJugadoresFormulario implements ActionListener {
         
             cambiar.addActionListener((ActionEvent e)->{
             if(rowAtPoint>-1){
-                if(FilaVacia(tabla3)<5){
-                    reemplazarSolidario(ObtenerDatosTabla(rowAtPoint,tabla1), tabla3, FilaVacia(tabla3));
-                    EliminarJugador(tabla1, rowAtPoint);
-                    
-                }
+                if(moverJugador(tabla3, tabla1, rowAtPoint))
+                    JOptionPane.showMessageDialog(null, "jugador cambiado");
                     
                   
                 }
             else if (rowAtPoint2>-1){ // here
-                moverJugador(tabla1, tabla3, rowAtPoint2);
+                if(moverJugador(tabla1, tabla3, rowAtPoint2))
+                JOptionPane.showMessageDialog(null, "jugador cambiado");
             }
             });
             menuLista.add(cambiar);
@@ -397,10 +401,12 @@ public class ListaJugadoresFormulario implements ActionListener {
     
         eliminar.addActionListener((ActionEvent e)->{
            if(rowAtPoint>-1){ // tabla 1
-               EliminarJugador(tabla1, rowAtPoint);
+               if(EliminarJugador(tabla1, rowAtPoint,nombre))
+                   JOptionPane.showMessageDialog(null, "El jugador "+nombre+" fue eliminado");
                
            }else if (rowAtPoint2>-1){
-               EliminarJugador(tabla3, rowAtPoint2);
+               if(EliminarJugador(tabla3, rowAtPoint2,nombre))
+                   JOptionPane.showMessageDialog(null, "El jugador "+nombre+" fue eliminado");
            }
             
         });
@@ -432,31 +438,62 @@ public class ListaJugadoresFormulario implements ActionListener {
         
     }
     
-    public void moverJugador(DefaultTableModel tablaCambio, DefaultTableModel tablaActual, int seleccion){
+    public boolean moverJugador(DefaultTableModel tablaCambio, DefaultTableModel tablaActual, int seleccion){
+        boolean estado=false;
         if(FilaVacia(tablaCambio)<5){
                     reemplazarSolidario(ObtenerDatosTabla(seleccion,tablaActual), tablaCambio, FilaVacia(tablaCambio));
-                    EliminarJugador(tablaActual, seleccion);
-                    
+                    EliminarJugador(tablaActual, seleccion,nombre);
+                    estado=true;
                 }
-     
+     return estado;
     }
     
-    public void EliminarJugador(DefaultTableModel tabla1, int rowAtPoint ){
+    public boolean EliminarJugador(DefaultTableModel tabla1, int rowAtPoint,String nombre ){
+        int i =0;
+        boolean estado=false;
+        Object[] datos = new Object[5];
         if(jugadorModelo.getRol().equals("admin")){
                    reemplazarSolidario(new Object[5], tabla1, rowAtPoint);
                    JOptionPane.showMessageDialog(null, "jugador eliminado");
                    
                }else if (jugadorModelo.getRol().equals("jugador") && (jugadorModelo.getNombre().equals(tabla1.getValueAt(rowAtPoint, Columnas.NOMBRE)))){
-                String nombre = JOptionPane.showInputDialog(null, "debe elegir reemplazo si no se le generara una infraccion");
+                    
+                   nombre = JOptionPane.showInputDialog(null, "debe elegir reemplazo si no se le generara una infraccion");
+                     
+                    for ( i = 0; i < tabla.getRowCount(); i++) {   
+                  
+                        if (tabla.getValueAt(i, Columnas.NOMBRE).equals(nombre)){
+                            datos = ObtenerDatosTabla(i);
+                            if(!buscarRepetidoTabla(this.tabla1, tabla3, datos)) {
+                                reemplazarSolidario(datos, tabla1, rowAtPoint);
+                                 System.out.println("datos del personaje"+Arrays.toString(datos)+"\n"+
+                                   "personaje encontrado en fila"+ i+" columna"+Columnas.NOMBRE); 
+                                 estado=true;
+                            }
+                        }
+                        
+                       }
+                    if(datos[0] == null && !nombre.equals(""))
+                           JOptionPane.showMessageDialog(null, "el jugador "+nombre+" no esta en la comunidad ");
+                    else if(datos[0]!=null && buscarRepetidoTabla(this.tabla1, tabla3, datos))
+                           JOptionPane.showMessageDialog(null, "el jugador "+nombre+" ya esta en una de las tablas ");
+                     else if(nombre.equals("")){
+                         InfraccionesBD infraccionesBd = new InfraccionesBD();
+                         jugadorModelo.setCantidad_infracciones(jugadorModelo.getCantidad_infracciones()+1);
+                         infraccionesBd.Updateinfraccion(jugadorModelo);
+                         InfraccionesFormulario infraccionesFormulario = new  InfraccionesFormulario();
+                         if(this.rowAtPoint>-1)
+                         
+                         infraccionesFormulario.GenerarPenalizacion(jugadorModelo, ObtenerDatosTabla(this.rowAtPoint),tabla,tabla1,rowAtPoint); //here
+                         else if(rowAtPoint2>-1)
+                         infraccionesFormulario.GenerarPenalizacion(jugadorModelo, ObtenerDatosTabla(this.rowAtPoint2+5),tabla,tabla1,rowAtPoint);  
+                         JOptionPane.showMessageDialog(null, "el jugador "+nombre+" tiene una infraccion "+jugadorModelo.getCantidad_infracciones());
+                         
+                           
+                       }
                    
-                for (int i = 0; i < tabla.getRowCount(); i++) {
-                       if (tabla.getValueAt(i, Columnas.NOMBRE).equals(nombre) && !buscarRepetidoTabla(this.tabla1, tabla3, ObtenerDatosTabla(i))) {
-                           reemplazarSolidario(ObtenerDatosTabla(i), tabla1, rowAtPoint);
-                           System.out.println("datos del personaje"+Arrays.toString(ObtenerDatosTabla(i))+"\n"+
-                                   "personaje encontrado en fila"+ i+" columna"+Columnas.NOMBRE);    
-                       } else System.out.println("usted no aprende verdad");
-                   }
-               }else System.out.println("la fila seleccionada no es su usuario");
+               }else JOptionPane.showMessageDialog(null, "la fila seleccionada no es su usuario");
+        return estado;
     }
     
     
@@ -495,6 +532,9 @@ public class ListaJugadoresFormulario implements ActionListener {
             this.listaJugadoresVista.jButtonInfracciones.setEnabled(false);
         }
     }
+    
+    
+    
     //llamados a botones de acciongit
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -517,7 +557,7 @@ public class ListaJugadoresFormulario implements ActionListener {
         }
         if (e.getSource() == listaJugadoresVista.jButtonInfracciones) {
             Infracciones infraccionesVista = new Infracciones();
-            InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario(infraccionesVista, listaJugadoresVista);
+            InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario(jugadorModelo,tabla1,tabla3,infraccionesVista, listaJugadoresVista);
             infraccionesVista.setVisible(true);
         }
     }

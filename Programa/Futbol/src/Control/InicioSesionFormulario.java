@@ -11,6 +11,7 @@ import BaseDatos.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  *
  * @author eduar
@@ -25,6 +26,7 @@ public class InicioSesionFormulario implements ActionListener {
         this.identificacionModelo = identificacionModelo;
         this.inicio_sesionVista.jButtonInicio.addActionListener(this);
         this.inicio_sesionVista.jButtonNuevoUsuario.addActionListener(this);
+       
     }   
 
     public void lectura() {
@@ -72,4 +74,5 @@ public class InicioSesionFormulario implements ActionListener {
         }
 
     }
+
 }

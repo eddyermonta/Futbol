@@ -5,7 +5,10 @@
  */
 package Control;
 
+import BaseDatos.CalificacionBD;
 import BaseDatos.InfraccionesBD;
+import BaseDatos.JugadorBD;
+import BaseDatos.PartidosBD;
 import Control.Jtablemodelo.Encabezado;
 import Control.Jtablemodelo.Columnas;
 import Control.Jtablemodelo.Celda;
@@ -54,6 +57,7 @@ public class ListaJugadoresFormulario implements ActionListener {
     int rowAtPoint=0;
     int rowAtPoint2=0,penalizado=0;
     String nombre ="";
+    int indice;
     
     public ListaJugadoresFormulario(ListaJugadores listaJugadoresVista, Identificacion identificacionModelo, Jugador jugadorModelo){
         this.listaJugadoresVista = listaJugadoresVista;
@@ -77,10 +81,54 @@ public class ListaJugadoresFormulario implements ActionListener {
         deshabilitarJugador();
   
     }
-
-    public ListaJugadoresFormulario() {
+    
+     public ListaJugadoresFormulario(DefaultTableModel tabla1,DefaultTableModel tabla3) {
+        this.tabla1=tabla1;
+        this.tabla3=tabla3;
+       
+        int cantidadJugadores=0;
+        CalificacionBD cbd = new CalificacionBD();
+        JugadorBD jbd = new JugadorBD();
+        int tamano=contarTabla(tabla1)+contarTabla(tabla3);
+       
+        for (int i = 0; i < tabla1.getRowCount(); i++) {
+             if(tabla1.getValueAt(i, 1)!=null){
+                 
+                 if(cbd.CalificacionJugador(tabla1.getValueAt(i, 1).toString())==tamano){
+                     Double sumaCalificaciones=0.0, promedio=0.0,promedioGeneral=0.0; 
+                     
+                    sumaCalificaciones=cbd.SumarCalificaciones(tabla1.getValueAt(i, 1).toString());
+                    cantidadJugadores=cbd.CalificacionJugador(tabla1.getValueAt(i, 1).toString());
+                
+                    promedio=sumaCalificaciones/cantidadJugadores;
+                    promedioGeneral=(jbd.BuscarPromedioGeneral(tabla1.getValueAt(i, 1).toString())+promedio)/2; //revisar
+                    cbd.UpdatePromedios(promedio, tabla1.getValueAt(i, 1).toString());
+                    jbd.UpdatePromedios(promedioGeneral, tabla1.getValueAt(i, 1).toString());
+               }
+             }
+                             
+             if(tabla3.getValueAt(i, 1)!=null){
+                 if(cbd.CalificacionJugador(tabla3.getValueAt(i, 1).toString())==tamano){
+                     Double sumaCalificaciones=0.0, promedio=0.0,promedioGeneral=0.0;
+                     
+                     sumaCalificaciones=cbd.SumarCalificaciones(tabla3.getValueAt(i, 1).toString());
+                     cantidadJugadores=cbd.CalificacionJugador(tabla3.getValueAt(i, 1).toString());
+                     
+                     promedio=sumaCalificaciones/cantidadJugadores;
+                     promedioGeneral=(jbd.BuscarPromedioGeneral(tabla3.getValueAt(i, 1).toString())+promedio)/2;
+                     cbd.UpdatePromedios(promedio, tabla3.getValueAt(i, 1).toString());
+                     jbd.UpdatePromedios(promedioGeneral, tabla3.getValueAt(i, 1).toString());
+                 }
+             }
+                 
+                
+         }
+        
     }
     
+    public ListaJugadoresFormulario() {
+    }
+     
   
     public ListaJugadoresFormulario(DefaultTableModel tb1,DefaultTableModel tb2, Object[] datosocasionales) {
         this.tabla1=tb1;
@@ -312,8 +360,6 @@ public class ListaJugadoresFormulario implements ActionListener {
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.PENALIZADO).setCellRenderer(new Celda("penalizado",jugadorModelo,penalizado));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.POSICION).setCellRenderer(new Celda("numerico",jugadorModelo));
         this.listaJugadoresVista.jTableListaJugadores.getColumnModel().getColumn(Columnas.SUSCRIPCION).setCellRenderer(new Celda("texto",jugadorModelo));
-        System.out.println(penalizado);
-    
         }
     
     public void EncabezadoTabla(JTable tabla){
@@ -533,7 +579,28 @@ public class ListaJugadoresFormulario implements ActionListener {
         }
     }
     
-    
+    public void cargarVentana(DefaultTableModel tabla,DefaultTableModel tabla2){
+       JugadorBD jugadorBD = new JugadorBD();
+        for (indice = 0; indice < tabla.getRowCount(); indice++) {
+            if(tabla.getValueAt(indice, 1)!=null){
+                jugadorModelo.setNombre(tabla.getValueAt(indice, 1).toString());
+                jugadorModelo=jugadorBD.LlenarJugador(jugadorModelo);
+                Calificacion calificacionVista = new Calificacion();
+                CalificacionFormulario CalificacionFormulario = new CalificacionFormulario(jugadorModelo,tabla1, tabla3, listaModelo.getIterator(), calificacionVista, listaJugadoresVista);
+                calificacionVista.setVisible(true);   
+            }
+               
+            if(tabla2.getValueAt(indice, 1)!=null){
+                 jugadorModelo.setNombre(tabla2.getValueAt(indice, 1).toString());
+                 jugadorModelo=jugadorBD.LlenarJugador(jugadorModelo);
+                 Calificacion calificacionVista = new Calificacion();
+                 CalificacionFormulario CalificacionFormulario = new CalificacionFormulario(jugadorModelo,tabla1, tabla3, listaModelo.getIterator(), calificacionVista, listaJugadoresVista);
+                 calificacionVista.setVisible(true); 
+            }
+                 
+        }
+        
+    }
     
     //llamados a botones de acciongit
     @Override
@@ -546,9 +613,14 @@ public class ListaJugadoresFormulario implements ActionListener {
         }
 
         if (e.getSource() == listaJugadoresVista.jButtonConfirmarEquipos) {
-            Calificacion calificacionVista = new Calificacion();
-            CalificacionFormulario CalificacionFormulario = new CalificacionFormulario(calificacionVista, listaJugadoresVista);
-            calificacionVista.setVisible(true);
+            if(contarTabla(tabla1)==contarTabla(tabla3)){
+                PartidosBD pbd = new PartidosBD();
+                cargarVentana(tabla1,tabla3); 
+                pbd.insertarPartido();
+                
+            }else JOptionPane.showMessageDialog(null,"los equipos estan disparejos");
+            
+    
         }
         if (e.getSource() == listaJugadoresVista.jButtonFormarEquipos) {
             ListaAutomatica ListaAutoVista = new ListaAutomatica();

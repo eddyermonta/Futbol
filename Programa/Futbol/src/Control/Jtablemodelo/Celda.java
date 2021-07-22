@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +34,11 @@ public class Celda extends DefaultTableCellRenderer {
         this.tipo = tipo;
         this.jug = jug;
     }
+
+    public Celda(String tipo) {
+         this.tipo = tipo;
+    }
+    
 
     public Celda(String tipo,Jugador jug, int penalizado) {
         this.tipo = tipo;
@@ -66,7 +72,7 @@ public class Celda extends DefaultTableCellRenderer {
             this.setFont(normal);
                      
             if(value!=null){
-                if (model.getValueAt(row, 1).equals(jug.getNombre())) {
+                if (jug!=null &&model.getValueAt(row, 1).equals(jug.getNombre())) {
                     rowSeleccion = row; 
                 
                     
@@ -105,11 +111,13 @@ public class Celda extends DefaultTableCellRenderer {
             this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
             
             if(value!=null && model.getValueAt(row, 1)!=null ){
-                if (model.getValueAt(row, 1).equals(jug.getNombre())) {
+                if (jug!=null && model.getValueAt(row, 1).equals(jug.getNombre())) {
                     rowSeleccion = row; 
                    
                         if(model.getValueAt(rowSeleccion, 4).equals(jug.getPromedio_general()))
                         this.setBackground(Color.BLUE);
+                        else if (model.getValueAt(rowSeleccion, 3).equals(jug.getPromedio_general()))
+                             this.setBackground(Color.BLUE);
                    
                 } else this.setBackground((isSelected) ? colorFondo : Color.GREEN);
             }
@@ -167,6 +175,8 @@ public class Celda extends DefaultTableCellRenderer {
                                     InfraccionesFormulario infraccionesFormulario = new InfraccionesFormulario();
                                     JOptionPane.showMessageDialog(null, "se genero una infraccion por inasistencia");
                                     jugaadmin.setAsistio(false);
+                                    check.setText("no");
+                                    check.setSelected(false);
                                     
                                     InfraccionesBD infraccionesBd = new InfraccionesBD();
                                     jugaadmin.setCantidad_infracciones(jugaadmin.getCantidad_infracciones()+1);
@@ -254,11 +264,57 @@ public class Celda extends DefaultTableCellRenderer {
 
         return this;
         }
+        
+     if (tipo.equals("double")){
+          if (hasFocus) colorFondo = colorFondoSeleccion;
+            else colorFondo = colorFondoPorDefecto;
+           
+            this.setHorizontalAlignment(JLabel.CENTER);
+            JSpinner JSpinner = new JSpinner();
+          if (model.getValueAt(row, 3).getClass().equals(Double.class)){
+              
+              JSpinner.setValue(0.0);
+              if(hasFocus)
+                  
+           //--------------------------------------------------------------------------------------------------colorea checks                   
+            JSpinner.setBackground(Color.GREEN);
+             return JSpinner;
+              
+              
+          }
+          this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
+        this.setFont(bold);
+        
+        return this;
+     }
+     
+     if (tipo.equals("numerico2")) {
+            if (hasFocus) colorFondo = colorFondoSeleccion;
+            else  colorFondo = colorFondoPorDefecto;
+            
+            this.setHorizontalAlignment(JLabel.CENTER);
+            this.setValue(value);
+            this.setFont(bold);
+            this.setForeground((isSelected) ? new Color(255, 255, 255) : new Color(32, 117, 32));
+            
+            if(value!=null && model.getValueAt(row, 1)!=null ){
+                if (jug!=null && model.getValueAt(row, 1).equals(jug.getNombre())) {
+                    rowSeleccion = row; 
+                
+                        if(model.getValueAt(rowSeleccion, 3).equals(jug.getPromedio_general()))
+                        this.setBackground(Color.BLUE);
+                   
+                } else this.setBackground((isSelected) ? colorFondo : Color.GREEN);
+            }
+            
+        return this;
+        }
+     
       
     return this;
     }
     
-    
+
     
 }
     

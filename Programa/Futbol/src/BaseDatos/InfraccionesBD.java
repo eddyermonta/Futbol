@@ -22,7 +22,7 @@ public class InfraccionesBD {
         try{
             String sql="update jugador as j,persona as p\n" +
                        "set j.CantidadInfracciones = ? \n" +
-                       "where j.idJugador = p.id_Persona\n" +
+                       "where p.id_Persona=j.Persona_id_Persona\n" +
                        "and p.Nombre='"+jugador.getNombre()+"'";
             
             PreparedStatement statement = ConexionBD.Conectar().prepareStatement(sql);
@@ -43,7 +43,7 @@ public class InfraccionesBD {
         try{
             String sql="update jugador as j,persona as p\n" +
                        "set j.CantidadInfracciones = ? , j.Asistencia=false\n" +
-                       "where j.idJugador = p.id_Persona\n" +
+                       "where p.id_Persona=j.Persona_id_Persona\n" +
                        "and p.Nombre='"+jugador.getNombre()+"'";
             
             PreparedStatement statement = ConexionBD.Conectar().prepareStatement(sql);
@@ -64,7 +64,7 @@ public class InfraccionesBD {
          try{
             String sql="update jugador as j,persona as p\n" +
                         "set j.penalizado= ? , j.FormaJuego = 'solidaria'\n" +
-                        "where j.idJugador = p.id_Persona\n" +
+                        "where p.id_Persona=j.Persona_id_Persona\n" +
                         "and p.Nombre='"+jugador.getNombre()+"'";
             
             

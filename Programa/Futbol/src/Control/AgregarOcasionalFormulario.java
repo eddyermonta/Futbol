@@ -5,6 +5,8 @@
  */
 package Control;
 
+import Control.Jtablemodelo.Celda;
+import Control.Jtablemodelo.Columnas;
 import Modelo.Identificacion;
 import Modelo.Iterator.Itf_iterator;
 import Modelo.Jugador;
@@ -13,6 +15,7 @@ import Vistas.ListaJugadores;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -24,7 +27,7 @@ public class AgregarOcasionalFormulario implements ActionListener{
     
    
     ArrayList<Jugador> jugadoresOcasionales;
-    Modelo.Iterator.ListaJugadores listaJugadores;
+    
     
     Agregar_Ocasional ocasionalVista;
     ListaJugadores ListaJugadoresVista ;
@@ -44,6 +47,9 @@ public class AgregarOcasionalFormulario implements ActionListener{
         tablaocasional = new DefaultTableModel();
         jugadoresOcasionales = new ArrayList<>();
         
+        ListaJugadoresFormulario listaJugadoresFormulario = new ListaJugadoresFormulario();
+        listaJugadoresFormulario.EncabezadoTabla(this.ocasionalVista.jTableJugadores);
+        cuerpoTablaOriginal(this.ocasionalVista.jTableJugadores, jugadorModelo);
         if(jugadoresOcasionales.isEmpty())while (iteracion.isDone()) 
              iteracion.dameArrayOcasional(jugadoresOcasionales);
            iteracion.first();
@@ -109,6 +115,15 @@ public class AgregarOcasionalFormulario implements ActionListener{
     public Jugador traeJugador(){
         return jugadoresOcasionales.get(indice);
     }
+    
+     public void cuerpoTablaOriginal(JTable tabla, Jugador jugador){
+        //tabla.getColumnModel().getColumn(4).setCellRenderer(new Celda("double",jugador));
+        tabla.getColumnModel().getColumn(Columnas.FORMA).setCellRenderer(new Celda("texto",jugador));
+        tabla.getColumnModel().getColumn(Columnas.NOMBRE).setCellRenderer(new Celda("texto",jugador));
+        tabla.getColumnModel().getColumn(Columnas.POSICION).setCellRenderer(new Celda("numerico",jugador));
+        tabla.getColumnModel().getColumn(Columnas.SUSCRIPCION).setCellRenderer(new Celda("texto",jugador));
+        }
+    
     
     public void ActualizaForma(){
         if(ocasionalVista.jCheckBoxEstandar.isSelected()){

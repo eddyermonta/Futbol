@@ -202,7 +202,7 @@ public class JugadorBD {
             query=ConexionBD.Conectar().createStatement();
             rs=query.executeQuery("SELECT * from persona as p, jugador as j \n" +
                                     "where p.Usuario='"+datosInicio.getUsuario()+"'\n" +
-                                    "and j.idJugador=p.id_Persona");
+                                    "and p.id_Persona=j.Persona_id_Persona");
             while (rs.next()) { 
                 jugador.setCedula(rs.getString("Cedula"));
                 jugador.setCorreo(rs.getString("Correo"));
@@ -229,8 +229,7 @@ public class JugadorBD {
         try{
             query=ConexionBD.Conectar().createStatement();
             rs=query.executeQuery("SELECT * from persona as p, jugador as j \n" +
-                                    "where p.nombre='"+datosInicio.getNombre()+"'\n" +
-                                    "and j.idJugador=p.id_Persona");
+                                    "where p.nombre='"+datosInicio.getNombre()+"' and p.id_Persona=j.Persona_id_Persona"); 
             while (rs.next()) { 
                 jugador.setCedula(rs.getString("Cedula"));
                 jugador.setCorreo(rs.getString("Correo"));
@@ -254,7 +253,7 @@ public class JugadorBD {
        
         try {
              String sql = "update jugador,persona set asistencia = ? \n" +
-            "where Persona_id_Persona = id_Persona\n" +
+            " where Persona_id_Persona = id_Persona\n" +
             "and Nombre='"+jugador.getNombre()+"'";
              
              PreparedStatement statement = ConexionBD.Conectar().prepareStatement(sql);
@@ -288,5 +287,65 @@ public class JugadorBD {
              Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
          }
          return estado;
+    }
+     
+     public int BuscarIndiceJug(Jugador jugador){
+         int indice=-1;
+         Statement query;
+         ResultSet rs;
+         try{
+            query=ConexionBD.Conectar().createStatement();
+            rs=query.executeQuery("select idJugador from jugador as j,persona as p\n" +
+                                  "where p.Nombre='"+jugador.getNombre()+"'"
+                                + "and p.id_Persona=j.Persona_id_Persona"); 
+             while (rs.next()) { 
+                 indice=rs.getInt("idJugador");
+             }
+         }catch(SQLException ex){
+             Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return indice;
+     }
+     
+      public double BuscarPromedioGeneral(String nombre){
+         double indice=0;
+         Statement query;
+         ResultSet rs;
+         try{
+            query=ConexionBD.Conectar().createStatement();
+            rs=query.executeQuery("select PromedioGeneral from jugador,persona where Persona_id_Persona=id_Persona\n" +
+                                    "and Nombre='"+nombre+"'"); 
+             while (rs.next()) { 
+                 indice=rs.getDouble("PromedioGeneral");
+             }
+         }catch(SQLException ex){
+             Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return indice;
+     }
+      public void UpdatePromedios(double promedio,String nombre){
+        try{
+            String sql="update jugador as j, persona as p \n" +
+                        "set j.PromedioGeneral= ?  \n" +
+                        " where p.id_Persona=j.Persona_id_Persona \n" +
+                        " and p.Nombre='"+nombre+"'";
+            
+            PreparedStatement statement = ConexionBD.Conectar().prepareStatement(sql);
+            statement.setDouble(1, promedio);
+            
+            int rowsUpdated = statement.executeUpdate();
+             if (rowsUpdated > 0) {
+                 System.out.println("promedios actualizados en bd");
+             }
+            
+        }catch(SQLException ex){
+            Logger.getLogger(JugadorBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+
+      public static void main(String[] args) {
+        JugadorBD jbd = new JugadorBD();
+        jbd.UpdatePromedios(3, "eduardo");
     }
 }

@@ -43,7 +43,7 @@ public class Calificacion extends javax.swing.JFrame {
         getContentPane().add(jButtonTerminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 167, -1));
 
         jTableJugadores.setAutoCreateRowSorter(true);
-        jTableJugadores.setBackground(new java.awt.Color(51, 51, 51));
+        jTableJugadores.setBackground(new java.awt.Color(51, 255, 51));
         jTableJugadores.setBorder(new javax.swing.border.MatteBorder(null));
         jTableJugadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

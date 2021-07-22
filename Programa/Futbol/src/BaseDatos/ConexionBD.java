@@ -17,8 +17,8 @@ public class ConexionBD {
 
     private static Connection con;
     public static final String Ruta = "jdbc:mysql://localhost:3306/futbol";
-    public static final String Usuario = "eddyer";
-    public static final String Contrasena = "BaseBaseDatos";
+    public static final String Usuario = "root"; 
+    public static final String Contrasena = "";
     public static final String Driver = "com.mysql.cj.jdbc.Driver";
 
     public ConexionBD() {
